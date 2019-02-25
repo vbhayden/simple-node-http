@@ -1,0 +1,13 @@
+version: '3'
+services:
+
+  # WebSocket example service
+  simple-http:
+    restart: always
+    build: 
+      context: .
+    ports:
+      - "80:80"
+    container_name: simple-http
+    environment:
+      PORT: "80"
