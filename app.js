@@ -24,6 +24,7 @@ const app = express();
 // Set EJS as our view engine for partial templates
 app.set("view engine", "ejs");
 app.set('json spaces', 2);
+app.set('views', [__dirname + '/files', __dirname +  "/views"]);
 
 // Enable CORS
 app.use(cors())
@@ -48,12 +49,13 @@ app.get("*", function (req, res, next) {
     // for the request.
     let pathEJS = (path.endsWith("/")) ? path + "index.ejs" : path + ".ejs";
     let pathDefault = (path.endsWith("/")) ? path + "index.html" : path;
+    let pathRenderEJS = pathEJS.substr(1, pathEJS.length - 1);
 
     // The rest is straightforward.  We're just checking if a file exists here and rendering
     // any EJS we find.
     fs.exists(root + pathEJS, function (exists) {
         if (exists) {
-            res.render(path);
+            res.render(pathRenderEJS);
         } else {
             checkPath(root, pathDefault, query, res, next);
         }
