@@ -28,12 +28,6 @@ app.set('json spaces', 2);
 // Enable CORS
 app.use(cors())
 
-app.get("/", function(req, res, next){
-    res.render("index", {
-        
-    });
-});
-
 // We'll handle this in about the most naive way possible.
 app.get("*", function (req, res, next) {
 
@@ -122,6 +116,13 @@ function handleDirectory(root, path, query, res, next) {
             next();
     });
 }
+
+// If they didn't supply an index.html themselves, use the backup
+app.get("/", function(req, res, next){
+    res.render("index", {
+        
+    });
+});
 
 // If we're still here, we didn't find anything
 //
